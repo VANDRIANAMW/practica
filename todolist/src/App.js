@@ -1,29 +1,58 @@
 import React from 'react';
 import './App.css';
-import ReactDOM from 'react-dom';
+//import { spawn } from 'child_process';
+//import ReactDOM from 'react-dom';
 
 
 class Vanessa extends React.Component {
-   state = {
+    constructor(props){
+        super(props)
+        this.state = {
        value: "",
-       array:[]
-   }
+       list:[]
+   };
+    this.Add = this.Add.bind(this);
+    }
+
    render(){
    return (
        <div>
         <h1>Controlador de entrada</h1>
-         <input onChange={e => this.setState({value: e.target.value})}/>
+        <form onSubmit={this.Add}>
+         <input placeholder="Agrega una nueva Tarea!" onChange={e => this.setState({value: e.target.value})}/>
+         </form>
          <br/>
-         <ul>
-         array.push({this.state.value});
+           <ul>
+          {this.state.list.map(item => (
+            <li key={item}>{item}
+            <button onClick={this.delete}>Eliminar</button>
 
-          </ul>
+            </li>
+          ))}
+        </ul>
 
-        </div>
-
+          </div>
    );
    }
+    Add (e){
+        e.preventDefault();
+        let arrayList=this.state.list;
+        arrayList.push(this.state.value);
+        this.setState ({
+        list:arrayList,
+        })
+        console.log(arrayList)
+   }
+   delete (){
+       let rar= this.state.list;
+        for (let i=0; i <this.state.rar; i++) {
+      rar.split(i)
+   }
+   console.log(rar);
+
+   }
 }
+
 function App() {
   return (
     <div className="App">
