@@ -8,29 +8,31 @@ class Vanessa extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-       value: "",
-       list:[]
+        value: "",
+        list:[]
    };
     this.Add = this.Add.bind(this);
+    this.delete = this.delete.bind(this);
+    this.deleteAll=this.deleteAll.bind(this);
     }
 
    render(){
    return (
-       <div>
-        <h1>Controlador de entrada</h1>
+       <div className="todoApp">
+        <h1>Lista de tareas</h1>
         <form onSubmit={this.Add}>
-         <input placeholder="Agrega una nueva Tarea!" onChange={e => this.setState({value: e.target.value})}/>
+         <input ref="fieldName" placeholder="Agrega una nueva Tarea!" onChange={e => this.setState({value: e.target.value})}/>
          </form>
          <br/>
            <ul>
-          {this.state.list.map(item => (
-            <li key={item}>{item}
-            <button onClick={this.delete}>Eliminar</button>
-
+          {this.state.list.map((item, index) => (
+            <li key={index}>{item}
+            <button className="deleteTask" onClick= {() => this.delete(index)}>Eliminar</button>
             </li>
           ))}
         </ul>
-
+            <button className="deleteAll" onClick={this.deleteAll}> Eliminar
+            </button>
           </div>
    );
    }
@@ -40,20 +42,27 @@ class Vanessa extends React.Component {
         arrayList.push(this.state.value);
         this.setState ({
         list:arrayList,
+
         })
-        console.log(arrayList)
+    console.log(arrayList)
    }
-   delete (){
-       let rar= this.state.list;
-        for (let i=0; i <this.state.rar; i++) {
-      rar.split(i)
-   }
-   console.log(rar);
 
-   }
-}
+ delete = i => {
 
-function App() {
+    this.setState(state => {
+
+      state.list.filter((item, j) => i !== j);
+      const list = state.list.filter((item, index) => i !== index);
+      return {
+        list,
+      };
+    });
+  };
+  deleteAll = () => {
+    this.setState({ list: [] });
+  };
+  }
+  function App() {
   return (
     <div className="App">
      <Vanessa/>
